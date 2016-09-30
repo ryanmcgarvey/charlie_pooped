@@ -9,5 +9,6 @@ Bundler.require(*Rails.groups)
 module CharliePooped
   class Application < Rails::Application
     config.action_controller.permit_all_parameters = true
+    config.time_zone = 'Eastern Time (US & Canada)'
   end
 end
