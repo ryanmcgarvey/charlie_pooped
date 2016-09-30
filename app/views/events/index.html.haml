@@ -1,0 +1,22 @@
+%h1 Events
+
+= simple_form_for Event.new do |f|
+  .row
+    .col-lg-6.col-sm-12
+      = f.input :activity
+    .col-lg-6.col-sm-12
+      = f.input :occurred_at
+  .row
+    .col-md-12
+      = f.input :comments, as: :text
+    .col-md-3.col-offset-md-4
+      = f.submit "Good Boy!", clasS: "btn btn-success btn-block"
+
+%br
+
+%table.table
+  - @events.each do |event|
+    %tr
+      %td=event.activity.text
+      %td=event.comments
+      %td=event.occurred_at.to_formatted_s(:short)
