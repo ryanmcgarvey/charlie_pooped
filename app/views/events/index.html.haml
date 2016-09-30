@@ -1,6 +1,4 @@
-%h1 Events
-
-= simple_form_for Event.new do |f|
+= simple_form_for Event.new, html: { class: 'form-horizontal' } do |f|
   .row
     .col-lg-6.col-sm-12
       = f.input :activity
