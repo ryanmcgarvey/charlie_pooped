@@ -9,4 +9,9 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
+  def destroy
+    Event.find(params[:id]).destroy!
+    redirect_to events_path
+  end
+
 end
