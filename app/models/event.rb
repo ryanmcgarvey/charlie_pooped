@@ -3,6 +3,8 @@ class Event < ApplicationRecord
   TYPES = %i|peed pooped ate peed_inside pooped_inside slept woke_up peed_in_crate pooped_in_create|
   enumerize :activity, in: TYPES
 
+  scope :last_few, -> { order(occurred_at: :desc).limit(20) }
+
   def self.event_data
     data = []
     index = 1
