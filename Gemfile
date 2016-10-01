@@ -28,11 +28,15 @@ source 'https://rails-assets.org' do
 end
 
 gem "font-awesome-rails"
+gem "chartkick"
 
 gem 'enumerize'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'pry-byebug'
+  gem 'pry'
+  
 end
 
 group :development do

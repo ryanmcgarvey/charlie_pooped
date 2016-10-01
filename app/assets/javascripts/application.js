@@ -16,4 +16,6 @@
 //= require jquery
 //= require tether
 //= require bootstrap-sprockets
+//= require Chart.bundle
+//= require chartkick
 //= require_tree .
