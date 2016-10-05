@@ -4,6 +4,8 @@ class Event < ApplicationRecord
   enumerize :activity, in: TYPES
 
   scope :last_few, -> { order(occurred_at: :desc).limit(20) }
+  validates :occurred_at, presence: true
+  validates :activity, presence: true
 
   def self.event_data
     data = []

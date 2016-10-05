@@ -13,8 +13,8 @@ class AlexaEvent
 
   def create!
     full_activity = modified_activity || activity
-    occurred_at = time ? Time.parse(time) : Time.now
-    Event.create(activity: full_activity, occurred_at: occurred_at)
+    occurred_at = time || DateTime.now
+    Event.create!(activity: full_activity, occurred_at: occurred_at)
   end
 
   def response_text
@@ -27,7 +27,7 @@ class AlexaEvent
 
   def modified_activity
     case modifier
-    when "inside"
+    when /inside/
       @good_boy = false
       case activity
       when "peed", "pooped"
@@ -35,8 +35,10 @@ class AlexaEvent
       end
     when /crate/, /cage/
       @good_boy = false
-    when "peed", "pooped"
-      "#{activity}_in_crate"
+      case activity
+      when "peed", "pooped"
+        "#{activity}_in_crate"
+      end
     end
   end
 end

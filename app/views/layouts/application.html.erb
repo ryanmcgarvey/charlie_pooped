@@ -3,7 +3,14 @@
   <head>
     <title>CharliePooped</title>
     <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
+    <% %w(72 120 152).each do |size| %>
+      <%= favicon_link_tag "apple-touch-icon-#{size}x#{size}.png", rel: 'apple-touch-icon', type: 'image/png', sizes: "#{size}x#{size}" %>
+    <% end %>
 
+    <% %w(16 32).each do |size| %>
+      <%= favicon_link_tag "favicon-#{size}x#{size}.png", rel: 'icon', type: 'image/png', sizes: "#{size}x#{size}" %>
+    <% end %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>

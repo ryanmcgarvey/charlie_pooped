@@ -1,12 +1,10 @@
 class AlexaController < ActionController::API
   def create
-    activity = params["request"]["intent"]["slots"]["Activity"]
-    modifier = params["request"]["intent"]["slots"]["Modifier"]
-    time     = params["request"]["intent"]["slots"]["Time"]
+    activity = params["request"]["intent"]["slots"]["Activity"]["value"]
+    modifier = params["request"]["intent"]["slots"]["Modifier"]["value"]
+    time     = params["request"]["intent"]["slots"]["Time"]["value"]
 
-    activity = activity["value"] if activity
-    modifier = modifier["value"] if modifier
-    time = Time.parse(time["value"]) if time
+    time = Time.parse(time) if time
 
     event = AlexaEvent.new(activity: activity, modifier: modifier, time: time)
     event.create!
