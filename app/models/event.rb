@@ -1,6 +1,6 @@
 class Event < ApplicationRecord
   extend Enumerize
-  TYPES = %i|peed pooped ate peed_inside pooped_inside slept woke_up peed_in_crate pooped_in_create|
+  TYPES = %i|peed pooped ate peed_inside pooped_inside slept woke_up peed_in_crate pooped_in_crate|
   enumerize :activity, in: TYPES
 
   scope :last_few, -> { order(occurred_at: :desc).limit(20) }
