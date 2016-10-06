@@ -12,6 +12,7 @@ class AlexaEvent
   end
 
   def create!
+    normalize_activity!
     full_activity = modified_activity || activity
     occurred_at = time || DateTime.now
     Event.create!(activity: full_activity, occurred_at: occurred_at)
@@ -23,6 +24,22 @@ class AlexaEvent
     else
       BAD_RESPONSES.sample
     end
+  end
+
+  private
+
+  def normalize_activity!
+    @activity =
+      case activity
+      when /wet/, /be/, /pe/i
+        "peed"
+      when /shit/, /crap/, /dump/, /po/i
+        "pooped"
+      when /sleep/, /slept/, /sle/i
+        "slept"
+      else
+        activity
+      end
   end
 
   def modified_activity
