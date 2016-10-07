@@ -21,8 +21,6 @@ class Event < ApplicationRecord
   end
 
   def self.most_recent
-    recent = {}
-    recent['pooped']
   end
 
 end

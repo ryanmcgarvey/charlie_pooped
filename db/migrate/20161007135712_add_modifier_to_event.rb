@@ -3,7 +3,7 @@ class AddModifierToEvent < ActiveRecord::Migration[5.0]
     add_column :events, :modifier, :string
 
     Event.all.each do |event|
-      activity = case event.activity
+      activity = case event.attributes['activity']
       when /peed/
         'peed'
       when /pooped/
