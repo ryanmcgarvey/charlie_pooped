@@ -14,7 +14,7 @@ class AlexaEvent
   def create!
     normalize!
     occurred_at = time || DateTime.now
-    @event = Event.new(activity: activity, occurred_at: occurred_at)
+    @event = Event.new(activity: activity, modifier: modifier, occurred_at: occurred_at)
     @event.save
   end
 
