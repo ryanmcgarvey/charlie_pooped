@@ -3,7 +3,7 @@ class AlexaEvent
   GOOD_RESPONSES = ["Good boy!", "Good pup!", "Way to go!"]
   BAD_RESPONSES = ["Oh no!", "OUTSIDE!", "Bad boy!"]
 
-  attr_reader :activity, :modifier, :time, :good_boy
+  attr_reader :activity, :modifier, :time, :good_boy, :event
   def initialize(activity:,modifier: nil,time: nil)
     @activity = activity
     @modifier = modifier
@@ -14,8 +14,8 @@ class AlexaEvent
   def create!
     normalize!
     occurred_at = time || DateTime.now
-    event = Event.new(activity: activity, occurred_at: occurred_at)
-    event.save
+    @event = Event.new(activity: activity, occurred_at: occurred_at)
+    @event.save
   end
 
   def response_text
