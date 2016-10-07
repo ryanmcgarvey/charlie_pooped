@@ -1,7 +1,9 @@
 class Event < ApplicationRecord
   extend Enumerize
-  TYPES = %i|peed pooped ate peed_inside pooped_inside slept woke_up peed_in_crate pooped_in_crate|
-  enumerize :activity, in: TYPES
+  ACTIVITY_TYPES = %i|peed pooped ate slept woke_up|
+  MODIFIER_TYPES = %i|inside crate|
+  enumerize :activity, in: ACTIVITY_TYPES
+  enumerize :modifier, in: MODIFIER_TYPES
 
   scope :last_few, -> { order(occurred_at: :desc).limit(20) }
   validates :occurred_at, presence: true
@@ -16,6 +18,11 @@ class Event < ApplicationRecord
     end
 
     data
+  end
+
+  def self.most_recent
+    recent = {}
+    recent['pooped']
   end
 
 end

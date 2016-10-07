@@ -12,51 +12,55 @@ class AlexaEvent
   end
 
   def create!
-    normalize_activity!
-    full_activity = modified_activity || activity
+    normalize!
     occurred_at = time || DateTime.now
-    Event.create!(activity: full_activity, occurred_at: occurred_at)
+    event = Event.new(activity: full_activity, occurred_at: occurred_at)
+    event.save
   end
 
   def response_text
-    if good_boy
-      GOOD_RESPONSES.sample
+    if event.valid?
+      if good_boy
+        GOOD_RESPONSES.sample
+      else
+        BAD_RESPONSES.sample
+      end
     else
-      BAD_RESPONSES.sample
+      "I was unable to process activity #{activity} or modifier #{modifier}"
     end
   end
 
   private
 
-  def normalize_activity!
+  def normalize!
     @activity =
       case activity
-      when /wet/, /be/, /pe/i
+      when /wet/, /be/, /pe/i, /we/
         "peed"
       when /shit/, /crap/, /dump/, /po/i
         "pooped"
       when /sleep/, /slept/, /sle/i
         "slept"
+      when /woke/, /got up/
+        "woke_up"
+      when /ate/, /fed/i, /8/, /eight/
+        "ate"
       else
         activity
       end
+
+    @modifier =
+      case modifier
+      when /inside/, /carpet/, /house/
+        @good_boy = false
+        "inside"
+      when /crate/, /cage/, /bed/
+        @good_boy = false
+        "crate"
+      else
+        modifier
+      end
   end
 
-  def modified_activity
-    case modifier
-    when /inside/
-      @good_boy = false
-      case activity
-      when "peed", "pooped"
-        "#{activity}_inside"
-      end
-    when /crate/, /cage/
-      @good_boy = false
-      case activity
-      when "peed", "pooped"
-        "#{activity}_in_crate"
-      end
-    end
-  end
 end
 

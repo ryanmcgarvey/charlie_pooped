@@ -1,25 +1,12 @@
-.new_event
-  = simple_form_for Event.new, html: { class: 'form-horizontal' } do |f|
-    .row
-      .col-sm-12
-        .text-xs-center
-          = f.input :activity, label: false, as: :radio_buttons_inline
-      .col-sm-12
-        .text-xs-center
-          = f.input :occurred_at, label: false
-    .row
-      -# .col-sm-12
-        -# = f.input :comments, as: :text, label: false
-      .col-sm-12
-        = f.submit "Good Boy!", clasS: "btn btn-success btn-block btn-lg"
-
+= render "events/form"
 %table.table.events
   - @events.each do |event|
     %tr
       %td=event.occurred_at.to_formatted_s(:short)
       %td=event.activity.text
-      %td=event.comments
+      %td=event.modifier.try(:text)
       %td
         =link_to event_path(event), method: :delete do
           = fa_icon "times"
+
 = line_chart Event.event_data

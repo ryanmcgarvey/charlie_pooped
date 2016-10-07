@@ -1,0 +1,6 @@
+%table.table.events
+  - Event.most_recent.each do |activity, event|
+    %tr
+      %td=event.occurred_at.to_formatted_s(:short)
+      %td=event.activity.text
+      %td=event.modifier.try(:text)
